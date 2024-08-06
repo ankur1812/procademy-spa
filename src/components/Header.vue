@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white p-4 border-b border-silver-400">
+  <header class="bg-white py-2 px-4 border-b border-silver-400">
     <div class="flex gap-2">
       <img src="../assets/procademy.png" width="18" height="24" />
       <h2 class="font-bold">Procademy</h2>
@@ -15,16 +15,16 @@
 
 <script>
 export default {
-  name: "Header",
+  name: "Header"
 };
 </script>
 
 <style scoped>
-nav a {
-  color: white;
+/* nav a {
+  color: black;
   text-decoration: none;
 }
 nav a:hover {
   text-decoration: underline;
-}
+} */
 </style>
