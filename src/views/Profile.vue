@@ -1,29 +1,39 @@
 <template>
-  <div class="bg-white p-5 rounded-md flex flex-col gap-6 self-strech">
-    <router-link class="font-bold text-gray-500" to="/">
-      &lt; Back to overview
-    </router-link>
-    <div v-if="profile" class="profile-main flex flex-col gap-1 text-gray-500">
-      <h1 class="text-lg font-bold flex items-center gap-1">
-        {{ profile?.title }}
-        <span
-          class="badge text-xs ml-1 py-0.5 px-2 rounded-lg"
-          :class="{
-            'bg-green-200 text-green-950': profile.achieved,
-            'bg-red-200 text-red-950': !profile.achieved
-          }"
-        >
-          {{ profile?.achieved ? "Certified" : "In Progress" }}
-        </span>
-      </h1>
-      <p>{{ profile.description }}</p>
+  <div class="profile-page bg-white">
+    <div
+      class="profile-page-contents p-5 rounded-md flex flex-col gap-6 self-strech"
+    >
+      <router-link class="font-bold text-gray-500" to="/">
+        &lt; Back to overview
+      </router-link>
+      <div
+        v-if="profile"
+        class="profile-main flex flex-col gap-1 text-gray-500"
+      >
+        <h1 class="text-lg font-bold flex items-center gap-1">
+          {{ profile?.title }}
+          <span
+            class="badge text-xs ml-1 py-0.5 px-2 rounded-lg"
+            :class="{
+              'bg-green-200 text-green-950': profile.achieved,
+              'bg-red-200 text-red-950': !profile.achieved
+            }"
+          >
+            {{ profile?.achieved ? "Certified" : "In Progress" }}
+          </span>
+        </h1>
+        <p>{{ profile.description }}</p>
+      </div>
+      <competence-list :v-if="profile" :skills="profile?.competences" />
     </div>
   </div>
 </template>
 
 <script>
+import CompetenceList from "../components/CompetenceList.vue";
 export default {
   name: "Profile",
+  components: { CompetenceList },
   data() {
     return {
       profile: null,
@@ -35,7 +45,7 @@ export default {
     async fetchProfileData() {
       let profileApiData = await fetch(this.serviceURI + this.$route.query.id);
       this.profile = await profileApiData.json();
-      // console.log(this.profile);
+      console.log(this.profile);
       return;
     }
   },
@@ -44,3 +54,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.profile-page-contents {
+  max-width: 1148px;
+}
+</style>
