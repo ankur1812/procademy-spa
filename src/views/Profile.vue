@@ -45,8 +45,17 @@ export default {
     async fetchProfileData() {
       let profileApiData = await fetch(this.serviceURI + this.$route.query.id);
       this.profile = await profileApiData.json();
-      console.log(this.profile);
-      return;
+      if (this.profile?.title) {
+        this.updateBreadCrumbTitle();
+      }
+    },
+    updateBreadCrumbTitle() {
+      let crumbs = Array.from(
+        document.querySelectorAll("ul#breadcrumbs li .crumb-label:last-child ")
+      );
+      if (crumbs.length) {
+        crumbs[crumbs.length - 1].innerText = this.profile?.title;
+      }
     }
   },
   mounted() {

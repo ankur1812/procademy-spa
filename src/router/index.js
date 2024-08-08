@@ -7,13 +7,12 @@ const routes = [
   {
     path: "/",
     component: DefaultLayout,
+    name: "My training profiles", // Homepage is currently the overview page
     children: [
-      { path: "", component: Overview },
-      { path: "profile", component: Profile }
+      { path: "/", component: Overview, name: "My training profiles" },
+      { path: "profile", component: Profile, name: "" }
     ]
   }
-  //   { path: "/", component: Overview },
-  //   { path: "/profiles", component: Profiles },
 ];
 
 const router = createRouter({

@@ -1,48 +1,58 @@
 <template>
   <nav>
-    <ul class="breadcrumbs flex p-0 m-0">
-      <li class="mr-2" v-for="(crumb, index) in breadcrumbs" :key="index">
-        <router-link
-          class="no-underline text-slate-500 hover:text-slate-700"
+    <ul id="breadcrumbs" class="flex p-0 m-0">
+      <li v-for="(crumb, index) in breadcrumbs" :key="index">
+        <component
+          :is="currentRoute != crumb.path ? 'router-link' : 'span'"
+          class="no-underline text-slate-500"
           :to="crumb.path"
-          >{{ crumb.label }}</router-link
         >
-        <span v-if="index < breadcrumbs.length - 1"> / </span>
+          <span v-if="crumb.label == 'home'" class="icons8-home"></span>
+          <span v-else class="crumb-label text-sm">{{ crumb.label }}</span>
+        </component>
+        <span v-if="index < breadcrumbs.length - 1" class="mx-3"> / </span>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
-import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 export default {
   name: "Breadcrumbs",
-  setup() {
-    const route = useRoute();
-
-    const crumbsHash = {
-      0: "Home",
-      1: "My training profiles"
-    };
-
-    const breadcrumbs = computed(() => {
-      const matchedRoutes = route.matched;
-      return matchedRoutes.map((route, index) => {
-        const label = route.meta.breadcrumb || route.name || crumbsHash[index];
-        const path = matchedRoutes
-          .slice(0, index + 1)
-          .map(r => r.path)
-          .join("");
+  computed: {
+    currentRoute() {
+      const route = useRoute();
+      return route.path;
+    },
+    breadcrumbs() {
+      const route = useRoute();
+      const matchedRoutes = route.matched.map(route => {
         return {
-          label,
-          path
+          label: route.meta.breadcrumb || route.name,
+          path: route.path
         };
       });
-    });
+      // console.log("*** matchedRoutes", matchedRoutes);
 
-    return { breadcrumbs };
+      // Since we are using the overview-page as default home page, the overview-page route is being detected twice.
+      // Remove the duplicate route
+      this.removeDuplicateRoute(matchedRoutes);
+
+      // Add additional route at start for showing the home icon
+      return [{ label: "home", path: "/" }].concat(matchedRoutes);
+    }
+  },
+  methods: {
+    removeDuplicateRoute(matchedRoutes) {
+      if (
+        matchedRoutes[matchedRoutes.length - 1].label ==
+        matchedRoutes[matchedRoutes.length - 2].label
+      ) {
+        matchedRoutes.splice(matchedRoutes.length - 1);
+      }
+    }
   }
 };
 </script>
