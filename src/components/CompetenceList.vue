@@ -1,14 +1,13 @@
 <template>
-  <div class="competences flex flex-col gap-4">
-    <h1>Competences</h1>
-    <div class="radio-container">
+  <div class="competences flex flex-col gap-4 sm:gap-5 md:gap-6">
+    <div class="radio-box hidden md:flex md:justify-end">
       <RadioButton v-model="currentView" :options="availableViews" />
     </div>
     <div
-      class="flex flex-wrap gap-4"
+      class="flex flex-wrap gap-4 sm:gap-5 md:gap-6"
       :class="{
         'flex-col': currentView == 'list',
-        'flex-row': currentView !== 'list'
+        'flex-row': currentView == 'grid'
       }"
     >
       <div
@@ -51,18 +50,19 @@ export default {
 </script>
 <style scoped>
 @media screen and (max-width: 767px) {
+  /* Using CSS to implement 'sm:w-full md:w-[calc(50% - 12px)] lg:w-[calc(33.3%-16px)]' class since they are overriding */
   .w-small {
     width: 100%;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .w-small {
-    width: 45%;
+    width: calc(50% - 12px);
   }
 }
 @media screen and (min-width: 1024px) {
   .w-small {
-    width: 30%;
+    width: calc(33.3% - 16px);
   }
 }
 </style>

@@ -1,22 +1,17 @@
 <template>
-  <div class="progress-bar-container w-full relative flex gap-3">
+  <div
+    class="progress-bar rounded-[50px] w-full h-2 bg-slate-100 relative overflow-hidden"
+  >
     <div
-      class="progress-bar w-full h-4 bg-gray-100 relative rounded border-b border-gray-100 overflow-hidden"
+      class="h-full"
+      :style="{
+        width: progressPercentage + '%'
+      }"
     >
       <div
-        class="h-full"
-        :style="{
-          width: progressPercentage + '%'
-        }"
-      >
-        <div
-          class="progress-fill h-full w-full animate-width bg-green-500"
-        ></div>
-      </div>
+        class="progress-fill h-full w-full animate-width bg-emerald-500"
+      ></div>
     </div>
-    <span class="font-bold w-24 text-right">
-      {{ achieved }} / {{ required }}</span
-    >
   </div>
 </template>
 

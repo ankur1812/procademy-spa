@@ -1,28 +1,28 @@
 <template>
-  <div class="profile-page bg-white">
+  <div class="profile-page bg-white rounded-2xl">
     <div
-      class="profile-page-contents p-5 rounded-md flex flex-col gap-6 self-strech"
+      class="profile-page-contents p-3 sm:p-4 md:p-5 rounded-md flex flex-col gap-4 sm:gap-5 md:gap-6 self-strech"
     >
-      <router-link class="font-bold text-gray-500" to="/">
-        &lt; Back to overview
+      <router-link class="flex gap-2 py-2 font-bold text-slate-500" to="/">
+        <i class="icons8-back"></i> Back to overview
       </router-link>
       <div
         v-if="profile"
-        class="profile-main flex flex-col gap-1 text-gray-500"
+        class="profile-main text-slate-500 flex flex-col gap-1 text-slate-500"
       >
-        <h1 class="text-lg font-bold flex items-center gap-1">
+        <h1 class="text-lg font-bold text-slate-500 flex items-center gap-2">
           {{ profile?.title }}
           <span
-            class="badge text-xs ml-1 py-0.5 px-2 rounded-lg"
+            class="badge text-xs py-1.5 px-2 rounded-lg"
             :class="{
-              'bg-green-200 text-green-950': profile.achieved,
+              'bg-emerald-200 text-emerald-950': profile.achieved,
               'bg-red-200 text-red-950': !profile.achieved
             }"
           >
             {{ profile?.achieved ? "Certified" : "In Progress" }}
           </span>
         </h1>
-        <p>{{ profile.description }}</p>
+        <p class="text-slate-500">{{ profile.description }}</p>
       </div>
       <competence-list :v-if="profile" :skills="profile?.competences" />
     </div>

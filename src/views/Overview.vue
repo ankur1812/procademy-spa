@@ -1,8 +1,12 @@
 <template>
-  <div class="overview-page bg-white p-5 rounded-md flex flex-col gap-6">
+  <div
+    class="overview-page bg-white rounded-2xl flex flex-col gap-4 sm:gap-5 md:gap-6 p-3 sm:p-4 md:p-5 "
+  >
     <div class="page-intro flex flex-col gap-1">
-      <h1 class="text-xl font-bold">My training profiles</h1>
-      <p class="text-sm">Overiew of required training profiles</p>
+      <h1 class="text-slate-800 text-xl font-bold">My training profiles</h1>
+      <p class="text-slate-500 text-sm">
+        Overiew of required training profiles
+      </p>
     </div>
     <Grid />
   </div>

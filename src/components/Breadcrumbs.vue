@@ -3,7 +3,7 @@
     <ul class="breadcrumbs flex p-0 m-0">
       <li class="mr-2" v-for="(crumb, index) in breadcrumbs" :key="index">
         <router-link
-          class="no-underline text-gray-500 hover:text-gray-700"
+          class="no-underline text-slate-500 hover:text-slate-700"
           :to="crumb.path"
           >{{ crumb.label }}</router-link
         >
@@ -24,7 +24,7 @@ export default {
 
     const crumbsHash = {
       0: "Home",
-      1: "My training profiles",
+      1: "My training profiles"
     };
 
     const breadcrumbs = computed(() => {
@@ -33,16 +33,16 @@ export default {
         const label = route.meta.breadcrumb || route.name || crumbsHash[index];
         const path = matchedRoutes
           .slice(0, index + 1)
-          .map((r) => r.path)
+          .map(r => r.path)
           .join("");
         return {
           label,
-          path,
+          path
         };
       });
     });
 
     return { breadcrumbs };
-  },
+  }
 };
 </script>

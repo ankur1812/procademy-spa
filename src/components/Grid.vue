@@ -2,7 +2,7 @@
   <ejs-grid
     ref="grid"
     :dataSource="data"
-    class="[&>.e-gridcontent>.e-content>table]:bg-blue-50 testcss"
+    class="overview-grid"
     :allowFiltering="true"
     :filterSettings="filterOptions"
   >
@@ -10,15 +10,14 @@
       <e-column
         field="id"
         headerText="ID"
-        textAlign="Left"
+        textAlign="Right"
         :allowFiltering="false"
-        width="69"
+        width="40"
       ></e-column>
       <e-column
         field="title"
         :allowFiltering="false"
         headerText="Title"
-        width="160"
       ></e-column>
       <e-column
         headerText="Achieved"
@@ -28,7 +27,6 @@
         :template="'renderTemplate_achieved'"
         :allowFiltering="true"
         :filterTemplate="'filterTemplate_achieved'"
-        width="100"
       >
       </e-column>
       <e-column
@@ -38,15 +36,15 @@
         :template="'renderTemplate_action'"
         :allowFiltering="false"
         :filterTemplate="'emptyTemplate'"
-        width="120"
+        width="65"
       ></e-column>
     </e-columns>
     <template v-slot:renderTemplate_achieved="{ data }">
       <div class="flex items-center justify-start">
         <span
-          class="inline p-1 px-2 rounded-50 cursor-pointer"
+          class="inline p-1 px-2 rounded-[50px] cursor-pointer"
           :class="{
-            'bg-green-50 text-green-700': data.achieved,
+            'bg-emerald-50 text-emerald-700': data.achieved,
             'bg-red-50 text-red-700': !data.achieved
           }"
         >
@@ -57,17 +55,17 @@
     <template v-slot:renderTemplate_action="{ data }">
       <div class="p-1 px-2 flex items-center justify-start">
         <span class="cursor-pointer">
-          <a :href="'/profile?id=' + data.id"> View</a>
+          <a :href="'/profile?id=' + data.id"> <i class="icons8-eye"></i></a>
         </span>
       </div>
     </template>
     <template v-slot:filterTemplate_achieved="{}">
-      <RadioButton v-model="currentStatusFilter" :options="statusFilters" />
-      <!-- <input
-        type="text"
-        :placeholder="'Filter ' + data.field"
-        @input="filterGrid($event, data.field)"
-      /> -->
+      <RadioButton
+        class="my-5"
+        v-model="currentStatusFilter"
+        :options="statusFilters"
+        :verticalView="true"
+      />
     </template>
     <template v-slot:emptyTemplate="{}">
       <span></span>
@@ -132,15 +130,6 @@ export default {
     }
   },
   methods: {
-    // radioUpdate(event, field) {
-    //   let filterValue = event.target.value;
-    //   this.$refs.grid.ej2Instances.filterByColumn(
-    //     field,
-    //     "contains",
-    //     filterValue
-    //   );
-    // },
-
     filterGrid(field, operator, value) {
       this.columnFilters =
         value == "clear"
@@ -152,7 +141,6 @@ export default {
                 value
               }
             ];
-      // this.$refs.grid.columnFilters.columns = this.columnFilters;
     }
   },
   watch: {
@@ -168,12 +156,32 @@ export default {
 };
 </script>
 
-<style scoped>
-.table td {
-  border: 4px solid crimson; /* For testing */
+<style>
+/* Adding CSS since injecting tailwind styling in the ej2 grids is failing */
+.overview-grid .e-grid,
+.overview-grid .e-headercelldiv,
+.overview-grid .e-grid,
+.overview-grid .e-detailheadercell {
+  padding: 0 !important;
+  margin: 0 !important;
 }
-/* CSS for tailwind rounded-[50px] */
-.rounded-50 {
-  border-radius: 50px;
+
+.e-headertext {
+  font-size: 14px;
+}
+.overview-grid .e-headertext {
+  font-family: Avenir, Helvetica, Arial, sans-serif !important;
+  color: #1e293b;
+  font-weight: 700;
+}
+.overview-grid .e-headercell,
+.overview-grid .e-rowcell {
+  padding: 20px 10px !important;
+}
+
+.overview-grid .e-rowcell {
+  font-family: Avenir, Helvetica, Arial, sans-serif !important;
+  color: #64748b !important; /* text-slate-500 */
+  font-size: 14px;
 }
 </style>

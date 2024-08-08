@@ -1,5 +1,5 @@
 <template>
-  <span class="icon-box">
+  <span class="icon-box h-[75px]">
     <svg
       width="78"
       height="77"
@@ -10,7 +10,7 @@
       <g filter="url(#filter0_d_11687_16955)">
         <path
           d="M15 16C15 9.37257 20.3726 4 27 4H52C58.6274 4 64 9.37258 64 16V56.7121L44.2854 71.428C41.4469 73.5467 37.5531 73.5467 34.7146 71.428L15 56.7121V16Z"
-          :fill="achieved ? '#A5B4FC' : 'lightgray'"
+          :fill="achieved ? '#A5B4FC' : '#E2E8F0'"
         />
         <rect
           x="2"
