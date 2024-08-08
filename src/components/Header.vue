@@ -1,15 +1,8 @@
 <template>
   <header class="bg-white py-2 px-4 border-b border-silver-400">
-    <div class="flex gap-2">
-      <img src="../assets/procademy.png" width="18" height="24" />
-      <h2 class="font-bold">Procademy</h2>
-    </div>
-    <nav>
-      <ul class="list-none m-0 p-0">
-        <!-- <li><router-link to="/">OverView</router-link></li> -->
-        <!-- <li><router-link to="/about">About</router-link></li> -->
-      </ul>
-    </nav>
+    <router-link to="/">
+      <img class="p-xs" src="../assets/logo_procademy.svg" height="48" />
+    </router-link>
   </header>
 </template>
 
@@ -20,11 +13,8 @@ export default {
 </script>
 
 <style scoped>
-/* nav a {
-  color: black;
-  text-decoration: none;
+/* Adding p-xs since limited support for tailwind p-[1px] */
+.p-xs {
+  padding: 1px;
 }
-nav a:hover {
-  text-decoration: underline;
-} */
 </style>
