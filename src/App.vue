@@ -11,7 +11,7 @@ export default {
 <style>
 @import "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css";
 @import "https://cdn.syncfusion.com/ej2/material.css";
-@import "./assets/styles/styles.min.css";
+/* @import "./assets/styles/styles.min.css"; */
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
