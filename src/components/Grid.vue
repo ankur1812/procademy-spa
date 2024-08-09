@@ -55,7 +55,9 @@
     <template v-slot:renderTemplate_action="{ data }">
       <div class="p-1 px-2 flex items-center justify-start">
         <span class="cursor-pointer">
-          <a :href="'/profile?id=' + data.id"> <i class="icons8-eye"></i></a>
+          <router-link :to="'profile?id=' + data.id">
+            <i class="icons8-eye"></i
+          ></router-link>
         </span>
       </div>
     </template>
@@ -105,7 +107,7 @@ export default {
 
   data() {
     let SERVICE_URI =
-      "https://proc-front-dev-task.wiremockapi.cloud/training_profiles";
+      "https://proc-front-dev-task.wiremockapi.cloud/training_profiles22";
     return {
       data: new DataManager({
         url: SERVICE_URI,
@@ -179,7 +181,8 @@ export default {
   padding: 20px 10px !important;
 }
 
-.overview-grid .e-rowcell {
+.overview-grid .e-rowcell,
+.e-emptyrow td {
   font-family: Avenir, Helvetica, Arial, sans-serif !important;
   color: #64748b !important; /* text-slate-500 */
   font-size: 14px;

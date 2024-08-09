@@ -3,7 +3,7 @@
     <ul id="breadcrumbs" class="flex p-0 m-0">
       <li v-for="(crumb, index) in breadcrumbs" :key="index">
         <component
-          :is="currentRoute != crumb.path ? 'router-link' : 'span'"
+          :is="route?.path != crumb.path ? 'router-link' : 'span'"
           class="no-underline text-slate-500"
           :to="crumb.path"
         >
@@ -22,19 +22,20 @@ import { useRoute } from "vue-router";
 export default {
   name: "Breadcrumbs",
   computed: {
-    currentRoute() {
+    route() {
       const route = useRoute();
-      return route.path;
+      return route;
     },
     breadcrumbs() {
-      const route = useRoute();
-      const matchedRoutes = route.matched.map(route => {
-        return {
-          label: route.meta.breadcrumb || route.name,
-          path: route.path
-        };
-      });
-      // console.log("*** matchedRoutes", matchedRoutes);
+      const route = this.route;
+      let matchedRoutes =
+        this.route?.matched?.map(route => {
+          return {
+            label: route.meta.breadcrumb || route.name,
+            path: route.path
+          };
+        }) || [];
+      // If route data is undefined, can also be fallback to Overview Homepage ([{ label: "My training profiles", path: "/" }])
 
       // Since we are using the overview-page as default home page, the overview-page route is being detected twice.
       // Remove the duplicate route
@@ -47,8 +48,8 @@ export default {
   methods: {
     removeDuplicateRoute(matchedRoutes) {
       if (
-        matchedRoutes[matchedRoutes.length - 1].label ==
-        matchedRoutes[matchedRoutes.length - 2].label
+        matchedRoutes[matchedRoutes.length - 1]?.label ==
+        matchedRoutes[matchedRoutes.length - 2]?.label
       ) {
         matchedRoutes.splice(matchedRoutes.length - 1);
       }
